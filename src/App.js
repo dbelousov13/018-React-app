@@ -16,81 +16,89 @@ import AboutPage from './pages/AboutPage';
 // import ComponentsPage from './pages/ComponentsPage';
 import CantactsPage from './pages/ContactsPage';
 import NotFound from './components/NotFound';
+import CounterWrapper from './components/CounterWrapper';
 
-//===== Routing ========
+
 function App(){
-    return (
-    <><PageHeader/>
-        <Router>
-            <ul>
-                <li><Link to={'/'}>Home</Link>
-                </li>
-                <li><Link to={'/components'}>Components</Link>
-                </li>
-                <li><Link to={'/contacts'}>Contacts</Link>
-                </li>
-                <li><Link to={'/about'}>About us</Link>
-                </li>
-            </ul>
-            <Switch>
-                <Route exact path={'/'}><HomePage/></Route>
-                <Route exact path={'/components'}><ComponentsPage/></Route>
-                <Route exact path={'/contacts'}><CantactsPage/></Route>
-                <Route exact path={'/about'}><AboutPage/></Route>
-                <Route path={'*'} component={NotFound} />
-                
-            </Switch>
-        </Router>
-        <PageFooter/>
-        </>
-    );
+    return <CounterWrapper />
 }
-
-function PageHeader(){
-    return <div>Page header</div>
-}
-
-function PageFooter(){
-    return <div>Page footer</div>
-}
-
-
-
-function ComponentsPage (){
-    const {path, url} = useRouteMatch();
-    console.log(`path`, path);
-    console.log(`url`, url)
-     return <div>Components Page:
-        { <Router>
-            <ul>
-                <li><Link to={`${url}/greeting`}>Greeting</Link>
-                </li>
-                <li><Link to={`${url}/counter`}>Counter</Link>
-                </li>
-                <li><Link to={`${url}/HTUserlist/HTChildUsers`}>Homatask UsersList</Link>
-                </li>
-                <li><Link to={`${url}/stopwatch`}>Stopwatch</Link>
-                </li>
-            </ul>
-            <Switch>
-                <Route exact path={`${path}/greeting`}><Greeting name={'DiMa'}/> <Greeting/></Route>
-                <Route exact path={`${path}/counter`}><Counter/></Route>
-                <Route exact path={`${path}/HTUserlist/HTChildUsers`}><HTUser/></Route>
-                <Route exact path={`${path}/stopwatch`}><Stopwatch/></Route>
-                <Route path={`${path}/*`}><NotFound /></Route>
-
-            </Switch>
-        </Router> }
-     </div>
- }
-
 
 export default App
 
+//===== Routing ========
+// function App(){
+//     return (
+//     <><PageHeader/>
+//         <Router>
+//             <ul>
+//                 <li><Link to={'/'}>Home</Link>
+//                 </li>
+//                 <li><Link to={'/components'}>Components</Link>
+//                 </li>
+//                 <li><Link to={'/contacts'}>Contacts</Link>
+//                 </li>
+//                 <li><Link to={'/about'}>About us</Link>
+//                 </li>
+//             </ul>
+//             <Switch>
+//                 <Route exact path={'/'}><HomePage/></Route>
+//                 <Route exact path={'/components'}><ComponentsPage/></Route>
+//                 <Route exact path={'/contacts'}><CantactsPage/></Route>
+//                 <Route exact path={'/about'}><AboutPage/></Route>
+//                 <Route path={'*'} component={NotFound} />
+                
+//             </Switch>
+//         </Router>
+//         <PageFooter/>
+//         </>
+//     );
+// }
+
+// function PageHeader(){
+//     return <div>Page header</div>
+// }
+
+// function PageFooter(){
+//     return <div>Page footer</div>
+// }
 
 
 
-//=======================
+// function ComponentsPage (){
+//     const {path, url} = useRouteMatch();
+//     console.log(`path`, path);
+//     console.log(`url`, url)
+//      return <div>Components Page:
+//         { <Router>
+//             <ul>
+//                 <li><Link to={`${url}/greeting`}>Greeting</Link>
+//                 </li>
+//                 <li><Link to={`${url}/counter`}>Counter</Link>
+//                 </li>
+//                 <li><Link to={`${url}/HTUserlist/HTChildUsers`}>Homatask UsersList</Link>
+//                 </li>
+//                 <li><Link to={`${url}/stopwatch`}>Stopwatch</Link>
+//                 </li>
+//             </ul>
+//             <Switch>
+//                 <Route exact path={`${path}/greeting`}><Greeting name={'DiMa'}/> <Greeting/></Route>
+//                 <Route exact path={`${path}/counter`}><Counter/></Route>
+//                 <Route exact path={`${path}/HTUserlist/HTChildUsers`}><HTUser/></Route>
+//                 <Route exact path={`${path}/stopwatch`}><Stopwatch/></Route>
+//                 <Route path={`${path}/*`}><NotFound /></Route>
+
+//             </Switch>
+//         </Router> }
+//      </div>
+//  }
+
+
+// c
+
+
+
+
+//===========end Routing ============
 
 //======== Learning state
 
