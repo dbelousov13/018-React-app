@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import styles from './HTLoginForm.module.css'
+import styles from './HTLoginForm.module.scss'
 
 class HTLoginForm extends Component {
     constructor(props) {

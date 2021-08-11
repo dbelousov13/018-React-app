@@ -21,7 +21,7 @@ import React from 'react';
 import HTLoginForm from './components/HTLoginForm';
 
 function App() {
-    return <HTLoginForm />;
+    return <HTLoginForm />
 }
 
 export default App;

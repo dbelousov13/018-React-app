@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import classNames from 'classnames'
+import styles from './HTLoginForm.module.scss';
+
 
 class HTLoginForm extends Component {
     constructor(props) {
@@ -7,67 +10,112 @@ class HTLoginForm extends Component {
         this.state = {
             firstName:'',
             lastName:'',
+            isNameValid:false,
             birthDay:'',
             userPhone:'',
+            isUserPhoneValid: false,
             login:'',
             passw:'',
-            confirmPassw:'',
+            isPasswValid: false,
             email:'',
-            confirmEmail:'',
             isLoginValid:false,
             
-        }
-    }
+        };
+    };
     
-    handleChange=({target:{value, name, }})=>{
-        this.setState({[name]:value,});
+    handleNameChange=({target:{value, name}})=>{
+        this.setState({[name]:value,
+        isNameValid:/^[A-Z]{1,18}/.test(value),});
     };
 
     handleLoginChange=({target:{value}})=>{
         this.setState({
             login:value,
-            isLoginValid:/^\S+$/.test(value),
+            isLoginValid:/^\D*\w{6,18}/.test(value),
         });
     };
 
-       
+    handlePhoneChange=({target:{value}})=>{
+        this.setState({
+            userPhone:value,
+            isUserPhoneValid:/^380\d{9}$/.test(value),
+        });
+    }
+
+    handlePasswChange=({target:{value}})=>{
+        this.setState({
+            passw:value,
+            isPasswValid:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/.test(value),
+        })
+    }
+
+    handleChange=({target:{value,name}})=>{
+        this.setState({[name]:value});
+    };
 
     submitHandler=e=>{
         e.preventDefault()
     };
 
     render() {
-        const {firstName, lastName, isLoginValid, birthDay, userPhone, login, passw, confirmPassw, email, confirmEmail}=this.state;
-        
-        emailCheck {
-            (this.email.value!=this.confirmEmail.value) 
-        } 
+        const {firstName, lastName,  birthDay, userPhone, login, passw, email, isNameValid, isLoginValid, isUserPhoneValid, isPasswValid }=this.state;
+
+//=====Попытался так сделать, но оно меняет класс всем трем инпутам в зависимости от валидации последнего введенного. Как то же можно написать одно условие для всех инпутов, что  бы под каждый не писать свой конст...
+//?
+// И получается один паттерн для проверки isNameValid я не могу использовать в двух инпутах firstName и lastName?
+
+// const inputClassValidation = classNames({
+//     [isNameValid ? styles.valid : styles.invalid]: firstName,},
+//     {[isUserPhoneValid ? styles.valid : styles.invalid]: userPhone,
+//     }
+// ) 
+
+const inputClassFirstNameValidation = classNames({
+        [isNameValid ? styles.valid : styles.invalid]: firstName}
+)  
+
+const inputClassLastNameValidation = classNames({
+    [isNameValid ? styles.valid : styles.invalid]: lastName}
+)
+
+const inputClassUserPhoneValidation = classNames({
+    [isUserPhoneValid ? styles.valid : styles.invalid]: userPhone}
+)
+
+const inputClassLoginValidation = classNames({
+    [isLoginValid ? styles.valid : styles.invalid]: login}
+)
+
+const inputClassPasswValidation = classNames({
+    [isPasswValid ? styles.valid : styles.invalid]: passw}
+)
+
         return (
-            <container>
-                <form onSubmit={this.submitHandler}>
-                    <label>
+            <container >
+                <form className={styles.container} onSubmit={this.submitHandler}>
+                    <label className={styles.label}>
                         First Name
                         <input
+                        className={inputClassFirstNameValidation}
                         type="text"
                         name="firstName"
                         placeholder="First name"
                         value={firstName}
-                        onChange={this.handleChange}
+                        onChange={this.handleNameChange}
                         />
                     </label>
-                    
-                    <label>
+                    <label className={styles.label}>
                         Surname
                         <input
+                        className={inputClassLastNameValidation}
                         type="text"
                         name="lastName"
                         placeholder="Surname"
                         value={lastName}
-                        onChange={this.handleChange}
+                        onChange={this.handleNameChange}
                         />
                     </label>
-                    <br/>
-                    <label>
+                    <label className={styles.label}>
                         Date of birth
                         <input
                         type="date"
@@ -76,21 +124,22 @@ class HTLoginForm extends Component {
                         onChange={this.handleChange}
                         />
                     </label>
-                    <br/>
-                    <label>
+                    <label className={styles.label}>
                         Phone
                         <input 
+                        className={inputClassUserPhoneValidation}
                         type="tel" 
                         name="userPhone" 
                         value={userPhone}
                         placeholder="38 012 12345678"
-                        onChange={this.handleChange}
+                        maxLength="12"
+                        onChange={this.handlePhoneChange}
                         />
                     </label>
-                    <br/>
-                    <label>
+                    <label className={styles.label}>
                         Login
-                        <input 
+                        <input
+                        className={inputClassLoginValidation}
                         type="text"
                         name="login"
                         placeholder="login"
@@ -98,49 +147,26 @@ class HTLoginForm extends Component {
                         onChange={this.handleLoginChange}
                         />
                     </label>
-                    <br/>
-                    <label>
+                    <label className={styles.label}>
                         Password
                         <input
+                        className={inputClassPasswValidation}
                         type="password"
                         name="passw"
                         value={passw}
-                        onChange={this.handleChange}
+                        onChange={this.handlePasswChange}
 
                         />
                     </label>
-                    <label>
-                        confirm password
-                        <input 
-                        type="password" 
-                        name="confirmPassw"
-                        value={confirmPassw}
-                        onChange={this.handleChange}
-                        />
-                    </label>
-                    <br/>
-                    <label>
+                    <label className={styles.label}>
                         Email
-                        <input type="email"
+                        <input className={styles.input}type="email"
                         name="email"
                         value={email}
                         onChange={this.handleChange}
                         />
                     </label>
-                    <label>
-                    confirm email
-                        <input type="email"
-                        name="confirmEmail"
-                        value={confirmEmail}
-                        onChange={this.handleChange}
-                        />
-                    </label>
-                    <br/>
                     <button type="submit">Create account</button>
-
-
-
-
                 </form>
             </container>
         )
